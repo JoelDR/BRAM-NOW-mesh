@@ -1,0 +1,89 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+sensor:
+  - platform: mqtt
+    name: "Room 1 - Humidity"
+    state_topic: "espnow/mesh/room1/sensor"
+    unit_of_measurement: "%"
+    value_template: "{{ value_json.sensHum }}"
+  - platform: mqtt
+    name: "Room 1 - Temperature"
+    state_topic: "espnow/mesh/room1/sensor"
+    unit_of_measurement: "°C"
+    value_template: "{{ value_json.sensTemp }}"
+    
+  - platform: mqtt
+    name: "Room 3 - Humidity"
+    state_topic: "espnow/mesh/room3/sensor"
+    unit_of_measurement: "%"
+    value_template: "{{ value_json.sensHum }}"
+  - platform: mqtt
+    name: "Room 3 - Temperature"
+    state_topic: "espnow/mesh/room3/sensor"
+    unit_of_measurement: "°C"
+    value_template: "{{ value_json.sensTemp }}"
+
+binary_sensor:
+  - platform: mqtt
+    name: "Room 2 - PIR Sensor"
+    state_topic: "espnow/mesh/room2/sensor" 
+    value_template: "{{ value_json.intruder }}"
+    payload_on: "ON"
+    payload_off: "OFF"
+    device_class: motion
+    
+  - platform: mqtt
+    name: "node 1"
+    state_topic: "espnow/mesh/nodes/node1"
+    payload_on: "ON"
+    payload_off: "OFF"
+
+  - platform: mqtt
+    name: "node 2"
+    state_topic: "espnow/mesh/nodes/node2"
+    payload_on: "ON"
+    payload_off: "OFF"
+    
+  - platform: mqtt
+    name: "node 3"
+    state_topic: "espnow/mesh/nodes/node3"
+    payload_on: "ON"
+    payload_off: "OFF"
+    
+  - platform: mqtt
+    name: "node 4"
+    state_topic: "espnow/mesh/nodes/node4"
+    payload_on: "ON"
+    payload_off: "OFF"
+switch:
+  - platform: mqtt
+    unique_id: room1_led
+    name: "Room 1"
+    state_topic: "espnow/mesh/room1/led1"
+    command_topic: "espnow/mesh/room1/led1"
+    value_template: "{{ value_json.light }}"
+    payload_on: '{"id":1,"light":"ON"}'
+    payload_off: '{"id":1,"light":"OFF"}'
+    state_on: "ON"
+    state_off: "OFF"
+
+  - platform: mqtt
+    unique_id: room3_led
+    name: "Room 3"
+    state_topic: "espnow/mesh/room3/led1"
+    command_topic: "espnow/mesh/room3/led1"
+    value_template: "{{ value_json.light }}"
+    payload_on: '{"id":3,"light":"ON"}'
+    payload_off: '{"id":3,"light":"OFF"}'
+    state_on: "ON"
+    state_off: "OFF"

@@ -1,0 +1,79 @@
+[
+    {
+        "id": "62491b6ea45322ff",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a00295d779ae006b",
+        "type": "serial in",
+        "z": "62491b6ea45322ff",
+        "name": "",
+        "serial": "0e6d7e75c5a10197",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "2fe6876767bb2096"
+            ]
+        ]
+    },
+    {
+        "id": "2fe6876767bb2096",
+        "type": "function",
+        "z": "62491b6ea45322ff",
+        "name": "function 1",
+        "func": "let time = new Date();\nlet time2 = new Date().toLocaleString('es-ES', {\n      timeZone: 'America/Guayaquil',\n    })\nmsg.date = time2 + \".\" + time.getMilliseconds();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "c60b9ad4b68b34dc"
+            ]
+        ]
+    },
+    {
+        "id": "c60b9ad4b68b34dc",
+        "type": "debug",
+        "z": "62491b6ea45322ff",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "0e6d7e75c5a10197",
+        "type": "serial-port",
+        "serialport": "/dev/ttyUSB0",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    }
+]
